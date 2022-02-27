@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+
+{% block extend_title %}Checkout | {% endblock %}
+
+{% block extend_nav %}
+{% include "shop/frags/nav_cart.html" with request=request %}
+{% endblock %}
+
+{% block content %}
+<section class="container py-5">
+    <div class="row">
+        <div class="col-md-4 order-md-2 mb-4">
+            {% include "shop/frags/billing_cart.html" with request=request %}
+        </div>
+        <div class="col-md-8 order-md-1">
+            <h4 class="mb-3">Billing address</h4>
+            <form action="" method="POST">
+                {% csrf_token %}
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="contact_first_name">First name</label>
+                        <input type="text" class="form-control" id="contact_first_name" name="contact_first_name" value="{{form.contact_first_name.value|default:''}}">
+                        {% if form.contact_first_name.errors %}
+                        <div class="invalid text-danger">
+                            Valid first name is required.
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="contact_last_name">Last name</label>
+                        <input type="text" class="form-control" id="contact_last_name" name="contact_last_name" value="{{form.contact_last_name.value|default:''}}">
+                        {% if form.contact_first_name.errors %}
+                        <div class="invalid text-danger">
+                            Valid last name is required.
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="contact_email">Email</label>
+                        <input type="text" class="form-control" id="contact_email" name="contact_email" value="{{form.contact_email.value|default:''}}">
+                        {% if form.contact_email.errors %}
+                        <div class="invalid text-danger">
+                            Email required.
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="contact_phone">Phone</label>
+                        <input type="text" class="form-control" id="contact_phone" name="contact_phone" value="{{form.contact_phone.value|default:''}}"/>
+                        {% if form.contact_phone.errors %}
+                        <div class="invalid text-danger">
+                            Please provide a valid phone.
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control" id="address" name="address" value="{{form.address.value|default:''}}">
+                    {% if form.address.errors %}
+                    <div class="invalid text-danger">
+                        Please enter your shipping address.
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="address_zipcode">Zip</label>
+                        <input type="text" class="form-control" id="address_zipcode" name="address_zipcode" value="{{form.address_zipcode.value|default:''}}">
+                        {% if form.address_zipcode.errors %}
+                        <div class="invalid text-danger">
+                            Zip code required.
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8 mb-3">
+                        <label for="address_city">City</label>
+                        <input type="text" class="form-control" id="address_city" name="address_city" value="{{form.address_city.value|default:''}}"/>
+                        {% if form.address_city.errors %}
+                        <div class="invalid text-danger">
+                            Please provide a valid city.
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <hr class="mb-4">
+
+                <button class="btn btn-dark btn-lg btn-block" type="submit" spellcheck="false">
+                    Continue
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

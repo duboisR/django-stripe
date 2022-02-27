@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+
+{% block extend_title %}Checkout | {% endblock %}
+
+{% block extend_nav %}
+{% include "shop/frags/nav_cart.html" with request=request %}
+{% endblock %}
+
+{% block content %}
+<section class="container py-5">
+    <div class="row">
+        <div class="col-md-4 order-md-2 mb-4">
+            {% include "shop/frags/billing_cart.html" with request=request %}
+        </div>
+        <div class="col-md-8 order-md-1">
+            <h4 class="mb-3">Cart</h4>
+            {% if object.is_empty %}
+            <h6 class="my-0">
+                Empty Cart
+            </h6>
+            {% else %}
+            <ul class="list-group mb-3">
+                {% for item in object.cartitem_set.all %}
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-4">
+                            <h6 class="my-0">
+                                {{item.product_name}}
+                            </h6>
+                            <small class="text-muted">
+                                {{item.product_description}}
+                            </small>
+                        </div>
+                        <div class="col-5">
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="product" value="{{item.product.pk}}" />
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text" id="basic-addon1">Quantity</span>
+                                    </div>
+                                    <input type="number" class="form-control" placeholder="Quantity" aria-label="Quantity" aria-describedby="basic-addon1"
+                                        name="quantity" value="{{item.product_quantity}}"
+                                        onchange="this.form.submit();">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col">
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="product" value="{{item.product.pk}}" />
+                                <input type="hidden" name="quantity" value="0" />
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            
+            <hr class="mb-4">
+            <a class="btn btn-dark btn-lg btn-block" href="{% url 'checkout' %}">
+                Continue
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

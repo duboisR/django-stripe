@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block extend_title %}Profile |{% endblock %}
+
+{% block extend_nav %}
+{% include "shop/frags/nav_cart.html" with request=request %}
+{% endblock %}
+
+{% block content %}
+<div class="col-6 mx-auto pt-5">
+    <div class="border rounded p-4">
+        <h3 class="mb-5 text-center">Profile</h3>
+        <form method="post">
+            
+            {% csrf_token %}
+
+            <div class="form-group">
+                <input type="text" name="first_name" autofocus="false" placeholder="First Name" class="form-control"
+                    required="" id="first_name" value="{{form.first_name.value}}">
+            </div>
+            <div class="form-group">
+                <input type="text" name="last_name" autofocus="false" placeholder="Last Name" class="form-control"
+                    required="" id="last_name" value="{{form.last_name.value}}">
+            </div>
+
+            <button type="submit" class="btn btn-lg btn-dark btn-round btn-block btn-loading shadow-sm mt-4">
+                Update
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

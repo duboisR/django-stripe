@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+
+{% block extend_title %}{{object}} | {% endblock %}
+
+{% block extend_nav %}
+{% include "shop/frags/nav_cart.html" with request=request %}
+{% endblock %}
+
+{% block content %}
+<!-- Product section-->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0"
+                    src="{{object.get_large_picture_url}}" alt="{{object.name}} picture" /></div>
+            <div class="col-md-6">
+                <h1 class="display-5 fw-bolder">{{object.name}}</h1>
+                <div class="fs-5 mb-5">
+                    <span class="text-decoration-line-through">{{object.get_incl_tax}}€</span>
+                </div>
+                <p class="lead">
+                    {{object.description}}
+                </p>
+                <form class="d-flex" action="" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="product" value="{{object.pk}}"/>
+                    <input class="form-control text-center me-3" type="text" name="quantity" value="1"
+                        style="max-width: 3rem" />
+                    <button class="btn btn-outline-dark flex-shrink-0 ml-2" type="submit">
+                        <i class="fa fa-shopping-cart"></i>
+                        Add to cart
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Related items section-->
+<section class="py-5 bg-light">
+    <div class="container px-4 px-lg-5 mt-5">
+        <h2 class="fw-bolder mb-4">Related products</h2>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            {% for item in related_products %}
+            {% include "shop/frags/item_card.html" with item=item %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% load shop %}
+
+{% shop_cart request as shop %}
+<a class="btn btn-outline-dark" href="{% url 'cart' %}">
+    <i class="fa fa-shopping-cart"></i> Cart
+    <span class="badge bg-dark text-white ms-1 rounded-pill">{{ shop.get_items_count }}</span>
+</a>

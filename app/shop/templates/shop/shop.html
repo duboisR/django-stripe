@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+
+{% block extend_title %}Shop | {% endblock %}
+
+{% block extend_nav %}
+{% include "shop/frags/nav_cart.html" with request=request %}
+{% endblock %}
+
+{% block content %}
+<!-- Section-->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            {% for item in object_list %}
+            {% include "shop/frags/item_card.html" with item=item %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

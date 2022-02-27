@@ -1,0 +1,17 @@
+<div class="col mb-5">
+    <a class="text-decoration-none text-dark" href="{% url 'shop_item' item.pk %}">
+        <div class="card h-100">
+            <!-- Product image-->
+            <img class="card-img-top" src="{{item.get_picture_url}}" alt="{{item.name}} picture" />
+            <!-- Product details-->
+            <div class="card-body p-4">
+                <div class="text-center">
+                    <!-- Product name-->
+                    <h5 class="fw-bolder">{{item.name}}</h5>
+                    <!-- Product price-->
+                    {{item.get_incl_tax}}€
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
